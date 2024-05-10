@@ -1,7 +1,9 @@
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
-local UICorner = Instance.new("UICorner")
-local TextBox = Instance.new("TextBox")
+local Input = Instance.new("TextBox")
+local Button = Instance.new("TextButton")
+local Reason = Instance.new("TextBox")
+local Button2 = Instance.new("TextButton")
 
 -- Properties
 
@@ -9,38 +11,121 @@ ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.new(1, 1, 1)
-Frame.BorderColor3 = Color3.new(0, 0, 0)
-Frame.BorderSizePixel = 0
-Frame.Position = UDim2.new(0.157342657, 0, 0.149098471, 0)
-Frame.Size = UDim2.new(0, 626, 0, 373)
+Frame.BackgroundColor3 = Color3.new(0.568627, 0.568627, 0.854902)
+Frame.Position = UDim2.new(0.0930693075, 0, 0.652329743, 0)
+Frame.Size = UDim2.new(0, 341, 0, 179)
 
-UICorner.Parent = Frame
+Input.Name = "Input"
+Input.Parent = Frame
+Input.BackgroundColor3 = Color3.new(0.333333, 0.333333, 0.498039)
+Input.Position = UDim2.new(0.0410557203, 0, 0.0609756075, 0)
+Input.Size = UDim2.new(0, 312, 0, 47)
+Input.Font = Enum.Font.SourceSans
+Input.PlaceholderColor3 = Color3.new(1, 1, 1)
+Input.PlaceholderText = "Player"
+Input.Text = ""
+Input.TextColor3 = Color3.new(1, 1, 1)
+Input.TextScaled = true
+Input.TextSize = 14
+Input.TextWrapped = true
 
-TextBox.Parent = Frame
-TextBox.BackgroundColor3 = Color3.new(0, 0, 0)
-TextBox.BorderColor3 = Color3.new(0, 0, 0)
-TextBox.BorderSizePixel = 0
-TextBox.Position = UDim2.new(0.289137393, 0, 0.321715832, 0)
-TextBox.Size = UDim2.new(0, 246, 0, 68)
-TextBox.Font = Enum.Font.SourceSans
-TextBox.Text = ""
-TextBox.TextColor3 = Color3.new(1, 1, 1)
-TextBox.TextSize = 14
+Button.Name = "Button"
+Button.Parent = Frame
+Button.BackgroundColor3 = Color3.new(0.333333, 0.333333, 0.498039)
+Button.Position = UDim2.new(0.0410557091, 0, 0.677306116, 0)
+Button.Size = UDim2.new(0, 141, 0, 50)
+Button.Font = Enum.Font.SourceSans
+Button.Text = "Kick"
+Button.TextColor3 = Color3.new(1, 1, 1)
+Button.TextScaled = true
+Button.TextSize = 14
+Button.TextWrapped = true
+
+Reason.Name = "Reason"
+Reason.Parent = Frame
+Reason.BackgroundColor3 = Color3.new(0.333333, 0.333333, 0.498039)
+Reason.Position = UDim2.new(0.0410557203, 0, 0.368238181, 0)
+Reason.Size = UDim2.new(0, 312, 0, 47)
+Reason.Font = Enum.Font.SourceSans
+Reason.PlaceholderColor3 = Color3.new(1, 1, 1)
+Reason.PlaceholderText = "Reason"
+Reason.Text = ""
+Reason.TextColor3 = Color3.new(1, 1, 1)
+Reason.TextScaled = true
+Reason.TextSize = 14
+Reason.TextWrapped = true
+
+Button2.Name = "Button2"
+Button2.Parent = Frame
+Button2.BackgroundColor3 = Color3.new(0.333333, 0.333333, 0.498039)
+Button2.Position = UDim2.new(0.533724368, 0, 0.677306116, 0)
+Button2.Size = UDim2.new(0, 144, 0, 50)
+Button2.Font = Enum.Font.SourceSans
+Button2.Text = "Ban from server"
+Button2.TextColor3 = Color3.new(1, 1, 1)
+Button2.TextScaled = true
+Button2.TextSize = 14
+Button2.TextWrapped = true
 
 -- Scripts
 
-local function ETBT_fake_script() -- TextBox.Script 
-	local script = Instance.new('Script', TextBox)
+local function LVTRMMF_fake_script() -- Button.LocalScript 
+	local script = Instance.new('LocalScript', Button)
 
-	local function kickPlayer(playerName)
-		local playerToKick = game.Players:FindFirstChild(playerName)
-		if playerToKick then
-			playerToKick:Kick("Вы были кикнуты администратором.")
-		else
-			print("Игрок с таким именем не найден.")
-		end
-	end
+	--by gringlestick2
 	
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Parent.Parent.RemoteEvent:FireServer(script.Parent.Parent.Input.Text, script.Parent.Parent.Reason.Text)
+	end)
 end
-coroutine.wrap(ETBT_fake_script)()
+coroutine.wrap(LVTRMMF_fake_script)()
+local function ZAYZ_fake_script() -- Frame.Script 
+	local script = Instance.new('Script', Frame)
+
+	--by gringlestick2
+	
+	script.Parent.RemoteEvent.OnServerEvent:Connect(function(player, input, reason)
+		local players = game:GetService("Players")
+	    players[input]:Kick(reason)
+	end)
+end
+coroutine.wrap(ZAYZ_fake_script)()
+local function ROGSR_fake_script() -- Button2.LocalScript 
+	local script = Instance.new('LocalScript', Button2)
+
+	--by gringlestick2
+	
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Parent.Parent.RemoteEvent2:FireServer(script.Parent.Parent.Input.Text, script.Parent.Parent.Reason.Text)
+	end)
+end
+coroutine.wrap(ROGSR_fake_script)()
+local function XOGYGR_fake_script() -- Frame.Script 
+	local script = Instance.new('Script', Frame)
+
+	--by gringlestick2
+	
+	script.Parent.RemoteEvent2.OnServerEvent:Connect(function(player, input, reason)
+		local players = game:GetService("Players")
+		local bans = {}
+		players[input]:Kick(reason)
+		table.insert(bans, input)
+		while true do wait()
+			game.Players.PlayerAdded:Connect(function(plr)
+				if plr.Name == bans[1] then
+					plr:Kick('Blacklisted from the server')
+				end
+			end)
+		end
+	end)
+end
+coroutine.wrap(XOGYGR_fake_script)()
+local function RQGLYAK_fake_script() -- ScreenGui.LocalScript 
+	local script = Instance.new('LocalScript', ScreenGui)
+
+	local frame = script.Parent.Frame
+	frame.Active = true
+	frame.Selectable = true
+	frame.Draggable = true
+end
+coroutine.wrap(RQGLYAK_fake_script)()
